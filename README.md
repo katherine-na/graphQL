@@ -1,4 +1,4 @@
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/GraphQL_Logo.svg/1200px-GraphQL_Logo.svg.png" width="150px">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/GraphQL_Logo.svg/1200px-GraphQL_Logo.svg.png" width="120px">
 <h1 align="center">GraphQL</h1>
 <h2 align="center">Graph Query Language</h2>
 
@@ -17,6 +17,8 @@ Graph es desarrollado pensando en el performance en utilizar unicamente los dato
 
 REST API'S
 En REST hay una gran cantidad de endpoints, en graph existe una sola URL y en ella se hacen todas las consultas.
+
+Con REST API tienes que hacer varias peticiones para obtener toda la información que necesitas. Mientras que GraphQL te permite pedir todo lo que quieras de una sola vez.
 
 ## Graph & SQL
 
@@ -113,4 +115,60 @@ ObtenerClientes: async () => {
     const Clientes = await Clientes.find({});
     return Clientes;
 }
+```
+
+### Inputs o Argumentos para Resolvers
+
+Los inputs te permiten pasar valores
+
+_Ejemplo_
+
+```
+query {
+  obtenerHelados(sabor: "fresa", tamaño: "mediano") {
+    sabor
+    tamaño
+    toppings
+  }
+}
+
+```
+
+_Esto nos devolvera_
+
+```
+{
+  "data": {
+    "obtenerHelados": [
+      {
+        "sabor": "fresa",
+        "tamaño": "mediano",
+        "toppings": ["chispas de chocolate", "sirope de fresa"]
+      },
+      {
+        "sabor": "fresa",
+        "tamaño": "mediano",
+        "toppings": ["nueces", "sirope de fresa"]
+      }
+    ]
+  }
+}
+
+```
+
+### Variables en graphQL
+
+Las variables se definen con el simbolo de dolar $ + nombre de la variable
+
+_Ejemplo_
+
+```
+query ObtenerHelado($sabor: String, $tamaño: String) {
+  obtenerHelados(sabor: $sabor, tamaño: $tamaño) {
+    sabor
+    tamaño
+    toppings
+  }
+}
+
 ```
